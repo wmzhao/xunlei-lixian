@@ -123,7 +123,7 @@ def download_single_task(client, task, options):
 		output_dir = os.path.dirname(output)
 		output_name = os.path.basename(output)
 	else:
-		output_name = escape_filename(task['name']).encode(default_encoding)
+		output_name = escape_filename(task['name']).encode(default_encoding, 'ignore')
 		output_dir = output_dir or '.'
 		output_path = os.path.join(output_dir, output_name)
 
@@ -155,13 +155,13 @@ def download_single_task(client, task, options):
 				print 'Skipped %s file %s ...' % (f['status_text'], name.encode(default_encoding))
 				continue
 			if not single_file:
-				print name.encode(default_encoding), '...'
+				print name.encode(default_encoding, 'ignore'), '...'
 			else:
 				with colors(options.get('colors')).green():
 					print name.encode(default_encoding), '...'
 			# XXX: if file name is escaped, hashing bt won't get correct file
 			splitted_path = map(escape_filename, name.split('\\'))
-			name = os.path.join(*splitted_path).encode(default_encoding)
+			name = os.path.join(*splitted_path).encode(default_encoding, 'ignore')
 			path = dirname + os.path.sep + name # fix issue #82
 			if splitted_path[:-1]:
 				subdir = os.path.join(*splitted_path[:-1]).encode(default_encoding)

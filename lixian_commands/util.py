@@ -70,7 +70,7 @@ def output_tasks(tasks, columns, args, top=True):
 				elif k == 'id':
 					print t.get('index', t['id']),
 				elif k == 'name':
-					print t['name'].encode(default_encoding),
+					print t['name'].encode(default_encoding,'ignore'),
 				elif k == 'status':
 					with colors(args.colors).bold():
 						print t['status_text'],

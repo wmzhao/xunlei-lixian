@@ -109,7 +109,7 @@ def info_hash(path):
 		return info_hash_from_content(stream.read())
 
 def encode_path(path):
-	return path.decode('utf-8').encode(default_encoding)
+	return path.decode('utf-8').encode(default_encoding, 'ignore')
 
 class sha1_reader:
 	def __init__(self, pieces, progress_callback=None):
@@ -167,7 +167,7 @@ def verify_bt_multiple(folder, info, file_set=None, progress_callback=None):
 			unicode_path = [p.decode('utf-8') for p in x['path.utf-8']]
 		else:
 			unicode_path = [p.decode(path_encoding) for p in x['path']]
-		native_path = [p.encode(default_encoding) for p in unicode_path]
+		native_path = [p.encode(default_encoding, 'ignore') for p in unicode_path]
 		utf8_path = [p.encode('utf-8') for p in unicode_path]
 		files.append({'path':os.path.join(folder, apply(os.path.join, native_path)), 'length':x['length'], 'file':utf8_path})
 
